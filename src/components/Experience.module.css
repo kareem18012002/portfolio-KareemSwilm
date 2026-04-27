@@ -1,0 +1,109 @@
+.wrapper { background: var(--bg); }
+
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 178px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+.timeline { position: relative; }
+
+.item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 40px;
+  opacity: 0;
+  transform: translateX(-28px);
+}
+.item:nth-child(even) { transform: translateX(28px); }
+.item + .item { margin-top: 48px; }
+
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-top: 4px;
+  gap: 12px;
+}
+.period {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  text-align: right;
+  white-space: nowrap;
+}
+.line { flex: 1; width: 1px; background: var(--border); }
+
+.right {
+  position: relative;
+  padding: 22px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+}
+.item:hover .right {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+.dot {
+  position: absolute;
+  left: -30px;
+  top: 20px;
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.org {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text2);
+  letter-spacing: 0.06em;
+  margin-bottom: 20px;
+}
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.list li {
+  position: relative;
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.7;
+  padding-left: 20px;
+}
+.list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 12px;
+}
+
+@media (max-width: 700px) {
+  .timeline::before { display: none; }
+  .item { grid-template-columns: 1fr; gap: 12px; }
+  .left { flex-direction: row; align-items: center; }
+  .line { display: none; }
+  .period { text-align: left; }
+  .dot { left: 14px; top: -6px; }
+  .right { padding-top: 24px; }
+}
