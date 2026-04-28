@@ -81,7 +81,7 @@ export default function Hero() {
 
           <div className={styles.rightCol}>
             <div className={styles.photoWrap}>
-              <img src="/images/profile-photo.png" alt="Kareem Ezzat Gharib Ali" className={styles.photo} />
+              <img src={`${import.meta.env.BASE_URL}images/profile-photo.png`} alt="Kareem Ezzat Gharib Ali" className={styles.photo} />
             </div>
           </div>
         </div>

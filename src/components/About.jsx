@@ -13,7 +13,7 @@ export default function About() {
 
         <div className={`${styles.panel} reveal`}>
           <aside className={styles.profileCard}>
-            <img src="/images/profile-photo.png" alt={personalInfo.name} className={styles.photo} />
+            <img src={`${import.meta.env.BASE_URL}images/profile-photo.png`} alt={personalInfo.name} className={styles.photo} />
             <h3>{personalInfo.name}</h3>
             <p>{personalInfo.role}</p>
             <div className={styles.profileLinks}>
