@@ -1,77 +1,64 @@
-# Kareem Ezzat — Portfolio (React)
+# Kareem Ezzat — .NET Backend Portfolio
 
-A modern, production-grade portfolio built with React + Vite + CSS Modules.
+An English, responsive portfolio built with standalone Angular components, strict TypeScript, CSS, zoneless change detection, and static prerendering with hydration. CV content is centralized in `src/app/cv-data.ts`; the supplied two-page PDF is embedded exactly in `src/app/cv-pdf-base64.ts` so the download works on static hosts without browser storage or a separate asset copy.
 
-## 🚀 Quick Start
+## Run locally
+
+Requires Node.js `^22.22.3`, `^24.15.0`, or `^26.0.0` for Angular 22.3.0.
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Run development server
-npm run dev
-# Opens at http://localhost:5173
-
-# 3. Build for production
+npm start
 npm run build
-
-# 4. Preview production build
-npm run preview
 ```
 
-## 📁 Project Structure
+Open `http://localhost:4200`. `npm start` runs `ng serve`; the production build is statically prerendered in `dist/kareem-portfolio/browser`.
 
-```
-portfolio/
-├── index.html
-├── vite.config.js
+## Project structure
+
+```text
+.
+├── angular.json
 ├── package.json
+├── tsconfig.json
+├── tsconfig.app.json
 ├── public/
-│   └── images/
-│       └── profile.jpg   ← Put your photo here
+│   ├── favicon.svg
+│   └── robots.txt
 └── src/
-    ├── main.jsx
-    ├── App.jsx
-    ├── styles/
-    │   └── globals.css        # CSS variables & base styles
-    ├── hooks/
-    │   └── useScrollReveal.js # Intersection Observer hook
-    ├── data/
-    │   └── portfolio.js       # All content — edit here
-    └── components/
-        ├── Navbar.jsx / .module.css
-        ├── Hero.jsx / .module.css
-        ├── About.jsx / .module.css
-        ├── Skills.jsx / .module.css
-        ├── Projects.jsx / .module.css
-        ├── Experience.jsx / .module.css
-        ├── Education.jsx / .module.css
-        ├── Contact.jsx / .module.css
-        └── Footer.jsx / .module.css
+    ├── index.html
+    ├── styles.css
+    ├── main.ts
+    ├── main.server.ts
+    └── app/
+        ├── app.component.ts
+        ├── app.config.ts
+        ├── app.config.server.ts
+        ├── app.routes.ts
+        ├── app.routes.server.ts
+        ├── cv-data.ts
+        ├── cv-pdf-base64.ts
+        ├── cv-download.service.ts
+        ├── seo.service.ts
+        ├── theme.service.ts
+        ├── sections/
+        │   ├── hero.component.ts
+        │   ├── about.component.ts
+        │   ├── experience.component.ts
+        │   ├── projects.component.ts
+        │   ├── skills.component.ts
+        │   ├── education.component.ts
+        │   ├── contact.component.ts
+        │   └── footer.component.ts
+        └── shared/
+            ├── navbar.component.ts
+            └── scroll.service.ts
 ```
 
-## 📸 Add Your Profile Photo
+## Deploy
 
-1. Create folder: `public/images/`
-2. Place your photo as: `public/images/profile.jpg`
-3. Recommended: 800×800px or larger, square crop
+- **Netlify:** connect the repository, use `npm run build` as the build command, and `dist/kareem-portfolio/browser` as the publish directory.
+- **Vercel:** import the repository, use `npm run build`, and set the output directory to `dist/kareem-portfolio/browser`.
+- **GitHub Pages:** `.github/workflows/deploy.yml` builds the site on pushes to `main` and publishes `dist/kareem-portfolio/browser` to the `gh-pages` branch. The repository's Pages source should be set to **Deploy from a branch → `gh-pages` → `/ (root)**. For another repository, change the workflow's `--base-href` to `"/<repository-name>/"`. Use `/` for a custom domain or user-site repository.
 
-## ✏️ Customizing Content
-
-All text content lives in **`src/data/portfolio.js`** — just edit that file:
-- Personal info, bio, social links
-- Skills categories and tags
-- Project details and metrics
-- Experience and education
-
-## 🎨 Design System
-
-Colors and fonts are in `src/styles/globals.css` as CSS variables.
-To change accent color: edit `--accent: #4F8EF7;`
-
-## 📦 Tech Stack
-
-- React 19
-- Vite 8
-- CSS Modules (zero runtime CSS-in-JS)
-- JetBrains Mono + Outfit fonts
+The CV currently lists a GitHub link for ElectroMart. The Course Management API and graduation project do not have project links in the supplied CV, so the portfolio marks those links as unlisted rather than inventing destinations.
