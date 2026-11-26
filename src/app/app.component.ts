@@ -8,6 +8,7 @@ import { HeroComponent } from './sections/hero.component';
 import { ProjectsComponent } from './sections/projects.component';
 import { SkillsComponent } from './sections/skills.component';
 import { NavbarComponent } from './shared/navbar.component';
+import { SplashScreenComponent } from './shared/splash-screen.component';
 import { ScrollService } from './shared/scroll.service';
 import { SeoService } from './seo.service';
 import { ThemeService } from './theme.service';
@@ -15,8 +16,9 @@ import { ThemeService } from './theme.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NavbarComponent, HeroComponent, AboutComponent, ExperienceComponent, ProjectsComponent, SkillsComponent, EducationComponent, ContactComponent, FooterComponent],
+  imports: [SplashScreenComponent, NavbarComponent, HeroComponent, AboutComponent, ExperienceComponent, ProjectsComponent, SkillsComponent, EducationComponent, ContactComponent, FooterComponent],
   template: `
+    <app-splash-screen />
     <a class="skip-link" href="#main-content">Skip to content</a>
     <app-navbar />
     <main id="main-content">

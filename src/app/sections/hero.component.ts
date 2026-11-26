@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { afterNextRender, Component, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { cvData } from '../cv-data';
 import { CvDownloadService } from '../cv-download.service';
 
@@ -23,6 +23,13 @@ import { CvDownloadService } from '../cv-download.service';
           </div>
         </div>
         <aside class="hero-note" data-reveal aria-label="Backend tools and focus">
+          <figure class="profile-photo">
+            @if (profileImageFailed()) {
+              <span class="profile-photo-fallback" role="img" aria-label="Kareem Ezzat">KE</span>
+            } @else {
+              <img #profileImage src="assets/profile.jpg" width="220" height="220" alt="Kareem Ezzat" loading="eager" (error)="onProfileImageError()">
+            }
+          </figure>
           <div class="note-topline"><span>FIELD NOTES</span><span>01—03</span></div>
           <p class="note-title">The work, in a few words.</p>
           <dl class="note-list">
@@ -41,4 +48,17 @@ import { CvDownloadService } from '../cv-download.service';
 export class HeroComponent {
   readonly cvData = cvData;
   readonly cvDownload = inject(CvDownloadService);
+  readonly profileImageFailed = signal(false);
+  private readonly profileImage = viewChild<ElementRef<HTMLImageElement>>('profileImage');
+
+  constructor() {
+    afterNextRender(() => {
+      const image = this.profileImage()?.nativeElement;
+      if (image?.complete && image.naturalWidth === 0) this.onProfileImageError();
+    });
+  }
+
+  onProfileImageError(): void {
+    this.profileImageFailed.set(true);
+  }
 }

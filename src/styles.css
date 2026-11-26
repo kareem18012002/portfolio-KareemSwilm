@@ -83,6 +83,45 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight: 700;
 }
 .skip-link:focus { transform: translateY(0); }
+body.splash-active { overflow: hidden; }
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  background: var(--bg);
+  color: var(--ink);
+  animation: splash-exit 3s ease forwards;
+}
+.splash-name {
+  display: flex;
+  margin: 0;
+  font: 600 clamp(2.1rem, 7.8vw, 5rem)/1 var(--font-display);
+  letter-spacing: -.075em;
+}
+.splash-name span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(.35em);
+  animation: splash-letter-in .65s cubic-bezier(.2, .7, .2, 1) forwards;
+}
+.splash-rule {
+  width: min(280px, 55vw);
+  height: 1px;
+  margin-top: clamp(18px, 3vw, 30px);
+  transform: scaleX(0);
+  transform-origin: center;
+  background: var(--accent);
+  animation: splash-line-in .3s ease 1.55s forwards;
+}
+@keyframes splash-letter-in { to { opacity: 1; transform: translateY(0); } }
+@keyframes splash-line-in { to { transform: scaleX(1); } }
+@keyframes splash-exit {
+  0%, 82% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; pointer-events: none; }
+}
 
 .site-header {
   position: sticky;
@@ -198,6 +237,32 @@ h1 {
   margin-bottom: 34px;
   padding: 19px 0 0 21px;
   border-left: 1px solid var(--line-strong);
+}
+.profile-photo {
+  width: min(100%, 220px);
+  aspect-ratio: 1;
+  margin: 0 0 25px;
+  overflow: hidden;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  outline: 1px solid var(--line-strong);
+  background: var(--accent-soft);
+  box-shadow: var(--shadow);
+}
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.profile-photo-fallback {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  font: 600 clamp(40px, 5vw, 62px)/1 var(--font-display);
+  letter-spacing: -.07em;
 }
 .note-topline, .note-list dt, .note-caption, .aside-index, .skill-number, .education-index {
   color: var(--subtle);
@@ -391,6 +456,7 @@ h1 {
   h1 { font-size: clamp(72px, 16vw, 116px); }
   .hero-lead { max-width: 510px; font-size: 18px; }
   .hero-note { width: min(100%, 430px); justify-self: end; margin: 0 10px 0 0; }
+  .profile-photo { width: clamp(140px, 42vw, 190px); margin-inline: auto; }
   .note-title { margin-top: 22px; }
   .hero-bottom { min-height: 50px; }
   .content-shell > .section { padding-top: 86px; scroll-margin-top: 76px; }
@@ -442,4 +508,6 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .reveal-ready [data-reveal] { opacity: 1; transform: none; }
+  .splash-name span, .splash-rule { animation: none !important; opacity: 1; transform: none; }
+  .splash-screen { animation: splash-exit .4s ease 2.5s forwards !important; }
 }
